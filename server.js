@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 
 app.use(userrouter)
 
-connectDB
+connectDB()
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
