@@ -54,27 +54,19 @@ module.exports = {
       res.status(400).json({succes: false})
     }
       const id = req.params.id
-
-    users.filter(user => {
-      if (user.id == id) {
-        user.nama = req.body.nama;
-        user.email = req.body.email;
-        
-        return user;
-      }
-    });
     
   },
-  delete: (req, res) => {
-    const id = req.params.id
-    users = users.filter(user => user.id != id)
-
-    res.json({
-    status: true,
-    data: users,
-    method: req.method,
-    url: req.url,
-    message: "Data berhasil dihapus"
-    })
+  delete: async  (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.params.id)
+        res.json({
+          status: true,
+          method: req.method,
+          url: req.url,
+          message: "Data berhasil dihapus"
+          })
+    } catch (error) {
+      res.status(400).json({succes: false})
+    }
   }
 };
